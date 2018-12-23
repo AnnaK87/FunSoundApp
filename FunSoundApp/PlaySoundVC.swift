@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PlaySoundVC.swift
 //  FunSoundApp
 //
 //  Created by Anna Kaukh on 12/23/18.
@@ -8,13 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class PlaySoundVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
     }
 
-
 }
-
