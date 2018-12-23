@@ -36,6 +36,7 @@ class RecordSoundVC: UIViewController, AVAudioRecorderDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         stopBtn.isEnabled = false
+        
     }
 
     func recordAudio() {
@@ -61,9 +62,17 @@ class RecordSoundVC: UIViewController, AVAudioRecorderDelegate {
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
-            performSegue(withIdentifier: "segueToPlaySoundVC", sender: audioRecorder.url)
+            performSegue(withIdentifier: "segueToPlaySoundVC", sender: getFileUrl().absoluteURL)
         } else {
             print("Recording failed")
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToPlaySoundVC" {
+            let playSoundVC = segue.destination as! PlaySoundVC
+            let recordedAudioURL = sender as! URL
+            playSoundVC.recordedAudioUrl = recordedAudioURL
         }
     }
     
@@ -92,9 +101,8 @@ class RecordSoundVC: UIViewController, AVAudioRecorderDelegate {
     func getDocumentsDirectory() -> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let directory = path[0]
-        print(directory)
+        print("Directory: \(directory)")
         return directory
-        
     }
     
     func getFileUrl() -> URL {
