@@ -60,7 +60,7 @@
                         <outlet property="recordBtn" destination="I9B-Uf-eec" id="Zh3-YY-bxV"/>
                         <outlet property="recordLbl" destination="1sN-Ur-uM7" id="lVy-gn-wEH"/>
                         <outlet property="stopBtn" destination="ckk-QJ-1gQ" id="ksg-zp-hEv"/>
-                        <segue destination="4fY-MP-xIQ" kind="show" id="DPt-LX-9fR"/>
+                        <segue destination="4fY-MP-xIQ" kind="show" identifier="segueToPlaySoundVC" id="DPt-LX-9fR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
