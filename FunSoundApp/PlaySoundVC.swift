@@ -9,8 +9,7 @@
 import UIKit
 import AVFoundation
 
-
-class PlaySoundVC: UIViewController, AVAudioPlayerDelegate {
+class PlaySoundVC: UIViewController {
 
     @IBOutlet weak var snailBtn: UIButton!
     @IBOutlet weak var rabbitBtn: UIButton!
@@ -22,25 +21,48 @@ class PlaySoundVC: UIViewController, AVAudioPlayerDelegate {
     
     
     var recordedAudioUrl: URL!
-    var audioPlayer: AVAudioPlayer!
+    var audioFile:AVAudioFile!
+    var audioEngine:AVAudioEngine!
+    var audioPlayerNode: AVAudioPlayerNode!
+    var stopTimer: Timer!
+    
+    enum ButtonType: Int {
+        case slow = 0, fast, chipmunk, vader, echo, reverb
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        configureUI(.notPlaying)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupAudio()
     }
     
     @IBAction func playSound(_ sender: UIButton) {
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: recordedAudioUrl!)
-            audioPlayer.delegate = self
-            audioPlayer.play()
-        } catch let error {
-            print(error.localizedDescription)
+      switch(ButtonType(rawValue: sender.tag)!) {
+        case .slow:
+            playSoundWith(rate: 0.5)
+        case .fast:
+            playSoundWith(rate: 2.0)
+        case .chipmunk:
+            playSoundWith(pitch: 1000)
+        case .vader:
+            playSoundWith(pitch: -1000)
+        case .echo:
+            playSoundWith(echo: true)
+        case .reverb:
+            playSoundWith(reverb: true)
         }
+        configureUI(.playing)
     }
-
     
     @IBAction func stopBtnPressed(_ sender: Any) {
+        stopAudio()
     }
     
 }
+
+    
+
+
